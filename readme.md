@@ -15,14 +15,14 @@ This project includes:
 
 ```
 MalUrl-final/
-│── features.py                 # Feature extraction logic
-│── server-updated.py           # Model inference API
-│── lgb_model.pkl               # Trained LightGBM model
-│── malicious-tfidf-updated.ipynb  # Training & experimentation notebook
-│── feature_meta.json           # Metadata used during inference
-│── feature_columns.json        # Final feature list used for training
-│── requirements.txt            # Python dependencies
-│── chrome-extension/           # Browser extension source code
+│── features.py                     # Feature extraction logic
+│── server-updated.py               # Model inference API
+│── lgb_model.pkl                   # Trained LightGBM model
+│── malicious-tfidf-updated.ipynb   # Training & experimentation notebook
+│── feature_meta.json               # Metadata used during inference
+│── feature_columns.json            # Final feature list used for training
+│── requirements.txt                # Python dependencies
+│── chrome-extension/               # Browser extension source code
 │── README.md
 ```
 
@@ -30,65 +30,88 @@ MalUrl-final/
 
 ## 🚀 Project Overview
 
-Malicious URLs are a major vector for phishing, malware distribution, and cyber-attacks.  
-This system detects malicious URLs based on:
+Malicious URLs remain a common attack vector for phishing, malware delivery, and social engineering.  
+This project detects malicious URLs using:
 
 ### ✔ Lexical Features  
 - URL length  
-- Number of digits  
-- Special character count  
+- Digit, symbol, and dot counts  
 - Suspicious keyword presence  
-- TLD category  
 - Entropy  
+- TLD and domain patterns  
 
 ### ✔ NLP / TF-IDF Vectorization  
 - Character-level TF-IDF  
-- N-gram analysis  
+- N-gram token patterns  
 
 ### ✔ ML Algorithm  
-The final model uses **LightGBM**, selected for high accuracy and fast inference.
+LightGBM is used for high accuracy, fast prediction time, and strong performance on sparse vector data.
 
 ---
 
-## 🧰 Installation
+## 🔧 Setup & Execution (Windows / macOS / Linux)
 
-### 1️⃣ Clone the repository  
+### **1️⃣ Create & Activate Virtual Environment**
+
+### 🪟 Windows
 ```bash
-git clone https://github.com/iamsantanu21/MalUrl-final.git
-cd MalUrl-final
+python -m venv venv
+venv\Scripts\activate.bat
 ```
 
-### 2️⃣ Install dependencies  
+### 🍎 macOS
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 🐧 Linux
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+---
+
+### **2️⃣ Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## ▶️ Running the API Server
-
-The backend server loads the trained model and returns predictions.
-
-Start the server:
-
+### **3️⃣ Start the Server (Uvicorn)**
 ```bash
-python server-updated.py
+uvicorn server-updated:app --host 127.0.0.1 --port 8010 --reload
 ```
 
 The API runs at:
-
 ```
-http://localhost:5000/predict
+http://127.0.0.1:8010
 ```
 
-### Example Request  
+---
+
+### **4️⃣ Stop the Server**
+Press:
+```
+CTRL + C
+```
+
+---
+
+## ▶️ API Endpoint Usage
+
+### **POST /predict**
+Send a JSON body containing a URL:
+
 ```bash
-curl -X POST http://localhost:5000/predict \
+curl -X POST http://127.0.0.1:8010/predict \
      -H "Content-Type: application/json" \
      -d '{"url": "http://example-login-free.ru"}'
 ```
 
-### Example Response  
+### Example Response:
 ```json
 {
   "url": "http://example-login-free.ru",
@@ -99,9 +122,9 @@ curl -X POST http://localhost:5000/predict \
 
 ---
 
-## 🧩 Browser Extension (Chrome)
+## 🧩 Chrome Extension
 
-The extension allows users to test URLs directly in their browser.
+The `chrome-extension/` folder contains a working Chrome extension that communicates with your backend API.
 
 ### Install Steps:
 1. Open `chrome://extensions/`  
@@ -113,32 +136,33 @@ The extension allows users to test URLs directly in their browser.
 
 ## 📊 Model Training
 
-Model development is documented in:
+Training is documented in:
 
 ```
 malicious-tfidf-updated.ipynb
 ```
 
-It covers:
+Includes:
 
-- Preprocessing  
+- Dataset preprocessing  
 - TF-IDF vectorization  
 - Feature engineering  
-- LightGBM training  
+- LightGBM model training  
 - Evaluation metrics  
+- Feature importance analysis  
 
 ---
 
 ## 🛠 Feature Engineering
 
-Core logic implemented in `features.py` includes:
+Implemented in `features.py`:
 
 - URL lexical features  
-- Character-level patterns  
-- Token-based TF-IDF  
+- Special character ratios  
+- Entropy calculation  
 - Suspicious keyword detection  
-- Normalization  
-- Domain/TLD analysis  
+- TF-IDF embedding integration  
+- Normalization & vector assembly  
 
 ---
 
@@ -147,10 +171,10 @@ Core logic implemented in `features.py` includes:
 | File | Description |
 |------|-------------|
 | `lgb_model.pkl` | Final trained LightGBM model |
-| `feature_columns.json` | List of ML features |
-| `feature_meta.json` | Metadata for inference |
-| `server-updated.py` | API server for predictions |
-| `features.py` | Feature extraction pipeline |
+| `feature_columns.json` | Ordered list of input features |
+| `feature_meta.json` | Metadata for TF-IDF & preprocessing |
+| `server-updated.py` | FastAPI/Uvicorn server for predictions |
+| `features.py` | Feature extraction functions |
 | `malicious-tfidf-updated.ipynb` | Training notebook |
 
 ---
@@ -173,10 +197,10 @@ print("Malicious" if prediction == 1 else "Benign")
 
 ---
 
-## 📈 Sample Performance
+## 📈 Sample Model Performance
 
 | Metric | Score |
-|-------|-------|
+|--------|--------|
 | Accuracy | 95–98% |
 | Precision | 94% |
 | Recall | 96% |
@@ -187,23 +211,23 @@ print("Malicious" if prediction == 1 else "Benign")
 ## 🛡️ Use Cases
 
 - Browser security plugins  
-- Phishing URL blocking  
 - Enterprise filtering  
-- Email malware detection  
-- Threat intelligence systems  
+- Email threat scanning  
+- Phishing URL detection  
+- Threat intelligence enrichment  
 
 ---
 
 ## 📌 Future Improvements
 
-- WHOIS-based domain age features  
-- Deep learning (CNN/LSTM hybrid model)  
+- Add WHOIS/domain age features  
 - Dockerized deployment  
-- Firefox/Edge extension support  
-- Larger dataset for robustness  
+- Deep learning (CNN/LSTM hybrid)  
+- Add Firefox/Edge version of extension  
+- Larger & real-world datasets  
 
 ---
 
 ## 📝 License
+This project is open-source. Add MIT/Apache License if required.
 
-This project is open-source (add MIT or Apache license if needed).
