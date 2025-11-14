@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malicious Website Detector</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="w-80 p-4 bg-white rounded-lg shadow-lg">
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-lg font-semibold text-gray-800">Website Safety Scanner</h1>
+      <img src="icon16.png" alt="Icon" class="w-6 h-6">
+    </div>
+    <div class="mb-4">
+      <div class="flex items-center justify-between">
+        <label for="scan-toggle" class="text-sm text-gray-600">Real-time Scanning</label>
+        <input type="checkbox" id="scan-toggle" class="h-4 w-4 text-blue-600 focus:ring-blue-500 rounded">
+      </div>
+    </div>
+    <div class="bg-gray-50 p-3 rounded-md mb-4 animate-slide-in">
+      <p class="text-sm text-gray-600">Current Page: <span id="page-status" class="font-medium">Checking...</span></p>
+      <p class="text-sm text-gray-600">Malicious Links: <span id="link-count" class="font-medium">0</span></p>
+    </div>
+    <div id="link-list" class="max-h-48 overflow-y-auto mb-4">
+      <h2 class="text-sm font-semibold text-gray-700 mb-2">Suspected Links</h2>
+      <ul id="malicious-links" class="text-xs text-gray-600"></ul>
+    </div>
+    <button id="scan-now" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors duration-200">
+      Scan Now
+    </button>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
