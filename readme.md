@@ -1,4 +1,4 @@
-# 🛡️ Malicious URL & Domain Detection (NLP-Based)  
+# 🛡️ NLP-Based Browser Extension for Malicious URL and Domain Detection  
 An end-to-end machine learning system for detecting malicious URLs using lexical features, TF-IDF patterns, and gradient boosting classifiers (LightGBM).  
 This project includes:
 
