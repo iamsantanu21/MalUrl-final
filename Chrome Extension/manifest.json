@@ -36,6 +36,7 @@
     "128": "icon128.png"
   },
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://* http://127.0.0.1:* http://localhost:*;"
-  }
+  "extension_pages": "script-src 'self'; object-src 'self'; style-src 'self' https://cdn.jsdelivr.net; connect-src 'self' https://malurl-final.onrender.com https://* http://127.0.0.1:* http://localhost:*;"
+}
+
 }

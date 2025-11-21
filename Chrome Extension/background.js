@@ -2,7 +2,7 @@
 // 🧠 BACKGROUND SERVICE WORKER — connects Chrome Extension to FastAPI model
 // =============================================================
 
-const API_URL = "http://127.0.0.1:8010/predict"; // local backend
+const API_URL = "https://malurl-final.onrender.com/predict"; // Render backend
 
 let lastResults = [];
 
